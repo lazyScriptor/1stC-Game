@@ -61,14 +61,17 @@ void Draw()
 	HANDLE h =GetStdHandle(STD_OUTPUT_HANDLE);
 
     system("cls"); //system("clear");
-    for (int i = 0; i < width+16; i++)
-        cout << wb;
+    for (int i = 0; i < width+16; i++){
+	
+    	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),3);
+        cout << wb;}
+        
         cout << endl;
     for (int i = 0; i < ((width+16)/2)-9; i++)
         cout << wb;
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),6);
                 cout << eggside<<" Biththara Paka "<<eggside;
-        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),8);
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),3);
         
     for (int i = 0; i < ((width+16)/2)-9; i++)
         cout << wb;
@@ -82,25 +85,26 @@ void Draw()
     {
         for (int j = 0; j < width; j++)
         {
+        	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),8);
             if (j == 0&&i<height-1)
                 cout << wb<<wb<<wb<<wb<<wb<<wb<<wb<<wb;
             if (i == y && j == x){
            		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),4);
                 cout << traysides<< traybase<< traybase<< traybase<< traybase<< traysides;
-                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),8);
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),F);
             }
             else if (i == fruitY && j == fruitX){
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),7);
+                cout << whiteobj;
+                
+            } else if (i == goldenY && j == goldenX){
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),6);
                 cout << whiteobj;
-                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),8);
-            } else if (i == goldenY && j == goldenX){
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),9);
-                cout << whiteobj;
-                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),8);
+                
             } else if (i == trashY && j == trashX){
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),2);
                 cout << trash;
-                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),8);
+                
             }
             else
             {
@@ -112,12 +116,13 @@ void Draw()
                  
  
             if (i<height-1&&j == width - 1)
+            
                 cout << wb<<wb<<wb<<wb<<wb<<wb<<wb<<wb;
          
         }
         cout << endl;
     }
- 
+ SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),F);
     for (int i = 0; i < width+16; i++)
         cout << wb;
         cout << endl;
@@ -126,6 +131,9 @@ void Draw()
         cout << endl;
     for (int i = 0; i < width+16; i++)
         cout << wb;
+        
+        
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),8);        
     cout << endl;
     cout<<"---------------"<<endl;
     cout<<"   Score : "<<score<<endl;
@@ -195,18 +203,28 @@ void Logic()
  
   	//Downward incrementation ===========================================================================
         fruitY++;
-    
-       goldenY++;
-       trashY++;
+    for(int i=0;i>=0;i++){
+	
+    	if(rand()%5==0)
+	  	goldenY++;
+      	break;
+}
+    for(int i=0;i>=0;i++){
+		if(rand()%8==0)	
+      	trashY++;
+       	break;
+   	
+}
+
     //=====================================================================================================
               
               
               
-         if (x-9<=fruitX && x>fruitX && y == fruitY)
+	if (x-9<=fruitX  && x>fruitX && y==fruitY)
     {
          score += 10;
     }
-      if (x-9<=goldenX && x>>goldenX && y == goldenY)
+    if (x-9<=goldenX && x>goldenX && y == goldenY)
     {
          score += 20;
     }
@@ -234,10 +252,10 @@ void Logic()
 	 while (!gameOver)
     {
         Draw();
-  //      Drawobjects();
+  //    Drawobjects();
         Input();
         Logic();
-        Sleep(10); //sleep(10);
+      //Sleep(10); //sleep(10);
     }
 }
 		
@@ -344,7 +362,8 @@ cout<<"\n\nPress 'y' or 'Enter' key to enter and 'n' or 'ESC' key to quit"<<endl
 				break;
 			case 27: menu1Choice=5;	//escape
 				break;
-			case 13: menu1Choice=4;	//enter
+			case 13: menu1Choice=4;
+				//enter
 				break;
 			}
 		}	                		
@@ -398,10 +417,6 @@ void options()
        gotoxy(63,19+chosen);
         cout<<"  ";
         if (c=='s')
-        
-        	
-
-        
         {
             if (chosen<6)
             {
